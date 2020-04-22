@@ -54,3 +54,25 @@ console.log(`isValid()`, thirdSong.isValid()); //false
 
 //validationError
 console.log(`validationError`, thirdSong.validationError); //validationError Title is required
+
+const Animal = Backbone.Model.extend({
+    walk: () => {
+        return "Animal walks..";
+    }
+});
+
+//Inheritance, extend()
+const Dog = Animal.extend();
+
+const dog = new Dog();
+console.log(dog.walk())
+
+const Cat = Animal.extend({
+    walk: () => {
+        const walkFromAnimal = Animal.prototype.walk.apply(this);
+        const catWalks = "Cat walks..";
+        return { walkFromAnimal, catWalks };
+    }
+});
+const cat = new Cat();
+console.log(cat.walk())
