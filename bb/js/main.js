@@ -7,6 +7,10 @@ const Song = Backbone.Model.extend({
     //initialize is automatically called by bb when object(Song) is instantiated
     initialize: function () {
         console.log(`A new song has been created`)
+    },
+    validate: attribute => {
+        if (!attribute.title)
+            return "Title is required";
     }
 });
 
@@ -42,3 +46,11 @@ console.log(`After un-setting title:`, anotherSong.toJSON());
 //remove all attribute - clear()
 anotherSong.clear();
 console.log(`After clear():`, anotherSong.toJSON());
+
+const thirdSong = new Song();
+
+//isValid()
+console.log(`isValid()`, thirdSong.isValid()); //false
+
+//validationError
+console.log(`validationError`, thirdSong.validationError); //validationError Title is required
