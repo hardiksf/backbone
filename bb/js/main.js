@@ -110,3 +110,43 @@ const myCar = new Car({
 });
 console.log(`is myCar valid`, myCar.isValid());
 console.log(`myCar.start():`, myCar.start());
+
+// Collections
+
+// Creating Collection
+const Songs = Backbone.Collection.extend({
+    mode: Song
+});
+
+// instantiating Collection
+// const songs = new Songs();
+
+const songs = new Songs([
+    new Song({
+        title: "song's Title",
+        artist: "Artist Name",
+        publishedYear: 2000
+    }),
+    new Song({
+        title: "Another song's Title",
+        artist: "Another Artist Name",
+        publishedYear: 2002
+    })
+]);
+
+songs.add(new Song({
+    title: "Yet Another song's Title",
+    artist: "Yet Another Artist Name",
+    publishedYear: 2005
+}));
+
+console.log(`songs:`, songs);
+console.log(`first model in songs collection:`, songs.at(0));
+console.log(`get collection by cid - bb created cid for`, songs.get(`c8`));
+
+// Remove a Collection
+songs.remove(songs.get(`c8`));
+console.log(`songs after removing by cid`, songs);
+
+songs.remove(songs.at(0));
+console.log(`songs after removing at index`, songs);
