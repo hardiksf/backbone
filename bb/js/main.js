@@ -76,3 +76,37 @@ const Cat = Animal.extend({
 });
 const cat = new Cat();
 console.log(cat.walk())
+
+// Create a Backbone model for a Vehicle. A Vehicle is uniquely identified via one of its attributes called “registrationNumber”, which cannot be null or undefined.
+const Vehicle = Backbone.Model.extend({
+
+
+    // Vehicles can be retrieved from the server at “/api/vehicles”.
+    urlRoot: "/api/vehicles",
+
+    validate: attribute => {
+        if (!attribute.registrationNumber)
+            return `registrationNumber is required`;
+    },
+
+    // A Vehicle should have a method called start(), which logs a message in the console: “Vehicle started.”
+    start: () => {
+        return `Vehicle started`;
+    }
+});
+const car = new Vehicle();
+console.log(`is car valid`, car.isValid());
+console.log(`car.start()`, car.start({
+    start: () => {
+        return `Car with registration number ${this.registrationNumber} started`;
+    }
+}));
+
+// Derive a Backbone model from the Vehicle and call it Car.
+const Car = Vehicle.extend();
+const myCar = new Car({
+    registrationNumber: "XLI887",
+    color: "Blue"
+});
+console.log(`is myCar valid`, myCar.isValid());
+console.log(`myCar.start():`, myCar.start());
